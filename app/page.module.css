@@ -5,8 +5,17 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  background-color: #2B908B;
 }
-
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--light-blue);
+  width: 100%;
+  padding: 20px 150px;
+  box-sizing: border-box;
+}
 .description {
   display: inherit;
   justify-content: inherit;
