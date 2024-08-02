@@ -1,590 +1,14 @@
-// "use client"
-// import { Box, Stack, Typography, Button, Modal, TextField ,Divider} from '@mui/material'
-// import { useEffect, useState } from 'react'
-// import { firestore } from '@/firebase'
-// import { collection, doc, getDocs, setDoc, query, deleteDoc, getDoc } from 'firebase/firestore'
 
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'white',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-//   display: 'flex',
-//   flexDirection: 'column',
-//   gap: 3,
-// };
 
-// export default function Home() {
-//   const [pantry, setPantry] = useState([])
-//   const [open, setOpen] = useState(false)
-//   const handleOpen = () => setOpen(true)
-//   const handleClose = () => setOpen(false)
-//   const [itemName, setItemName] = useState('')
-
-//   const updatePantry = async () => {
-//     const snapshot = query(collection(firestore, 'plentry'))
-//     const docs = await getDocs(snapshot)
-//     const pantryList = []
-//     docs.forEach((doc) => {
-//       pantryList.push({ name: doc.id, ...doc.data() })
-//     })
-//     console.log(pantryList)
-//     setPantry(pantryList)
-//   }
-
-//   useEffect(() => {
-//     updatePantry()
-//   }, [])
-
-//   const addItem = async (item) => {
-//     const docRef = doc(collection(firestore, 'plentry'), item)
-//     const docSnap = await getDoc(docRef)
-//     if (docSnap.exists()){
-//       const {count}= docSnap.data()
-//       await setDoc(docRef,{count:count+1})
-  
-
-//     }
-//     else{
-//       await setDoc(docRef, { count: 1 })
-
-//     }
-//     await updatePantry()
-//   }
-
-//   const removeItem = async (item) => {
-//     const docRef = doc(collection(firestore, 'plentry'), item)
-//     const docSnap = await getDoc(docRef)
-//     if(docSnap.exists()){
-//       const{count}=docSnap.data()
-//       if(count==1){
-//         await deleteDoc(docRef)
-//       }else{
-//         await setDoc(docRef,{count:count-1})
-//       }
-//     }
-
-//     await updatePantry()
-//   }
-
-//   return (
-    
-    
-//     <Box
-//       width="100vw"
-//       height="100vh"
-//       display={'flex'}
-//       justifyContent={'center'}
-//       alignItems={'center'}
-//       backgroundColor="white"
-//       flexDirection={'column'}
-//       // gap={2}
-//     >
-//      {/* <Typography variant="h1" color="black" textAlign="center" mb={2}>
-//         Welcome to Your Pantry Manager
-//       </Typography>
-//       <Typography variant="h2" color="bla" textAlign="center" mb={4}>
-//         Easily keep track of your pantry items and their quantities. Add new items or remove items as you use them.
-//       </Typography>
-//        */}
-    
-//       <Modal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <Box sx={style}>
-//           <Typography id="modal-modal-title" variant="h6" component="h2" color="black" fontFamily={'Playfair Display'}>
-//             Add Item
-//           </Typography>
-//           <Stack width="100%" direction={'row'} spacing={2}>
-//             <TextField
-//               id="outlined-basic"
-//               label="Search"
-//               variant="outlined"
-//               fullWidth
-//               value={itemName}
-//               onChange={(e) => setItemName(e.target.value)}
-//             />
-//             <Button
-//               variant="outlined"
-//               onClick={() => {
-//                 addItem(itemName)
-//                 setItemName('')
-//                 handleClose()
-//               }}
-//             >
-//               Add 
-//             </Button>
-//           </Stack>
-//         </Box>
-//       </Modal>
-
-//       {/* <Button variant="contained" onClick={handleOpen}>
-//         Add Item
-//       </Button> */}
-//       {/* <Box border={'3px solid #333'}> */}
-//         <Box
-//           width="800px"
-//           height="100px"
-//           backgroundColor={"#d4b990"}
-//           display={'flex'}
-//           justifyContent={'left'}
-//           alignItems={'left'}
-
-//           // border={'1px solid #333'}
-//           borderRadius= {'12px 12px 0 0'}
-//           padding={4}
-//         >
-//           <Typography variant={'h2'} color={'black'} textAlign={'center'}  sx={{ fontSize: '3rem' , fontWeight: 'bold' }}>
-//             Pantry Items
-//           </Typography>
-//           <Button
-//             variant="contained"
-//             onClick={handleOpen}
-//             sx={{ marginLeft: 'auto', display: 'block' , backgroundColor: '#d4b990', color: 'black', fontWeight: 'bold'}}
-           
-           
-//           >
-//           Add Item
-//         </Button>
-//         </Box>
-//         <Stack width="800px" height="300px" overflow="auto"  divider={<Divider orientation="horizontal" flexItem sx={{ borderColor: '#d4b990' }} />}>
-//           {pantry.map(({ name, count }) => (
-//             <Box
-//               key={name}
-//               width="100%"
-//               minHeight="100px"
-//               display={'flex'}
-//               justifyContent={'space-between'}
-//               padding={2}
-//               alignItems={'center'}
-//               backgroundColor={'#ebe3d4'}
-//               paddingX={5}
-              
-//             >
-//               <Typography variant={'h5'} color={'#333'} textAlign={'center'}>
-//                 {name.charAt(0).toUpperCase() + name.slice(1)}
-
-//               </Typography>
-             
-//               <Typography variant = {'h5'}color ={'#333'}textAlign ={'center'}>
-              
-//               {count}
-//               </Typography>
-
-//               <Button variant="contained" sx={{backgroundColor:'#d4b990'}} onClick={() => removeItem(name)}>Remove</Button>
-//             </Box>
-//           ))}
-//         </Stack>
-//       </Box>
-//     // </Box>
-//   );
-// }
-// "use client"
-// import { Box, Stack, Typography, Button, Modal, TextField, Divider } from '@mui/material'
-// import { useEffect, useState } from 'react'
-// import { firestore } from '@/firebase'
-// import { collection, doc, getDocs, setDoc, query, deleteDoc, getDoc } from 'firebase/firestore'
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'white',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-//   display: 'flex',
-//   flexDirection: 'column',
-//   gap: 3,
-// };
-
-// export default function Home() {
-//   const [pantry, setPantry] = useState([])
-//   const [open, setOpen] = useState(false)
-//   const [itemName, setItemName] = useState('')
-//   const [searchQuery, setSearchQuery] = useState('')
-
-//   const handleOpen = () => setOpen(true)
-//   const handleClose = () => setOpen(false)
-
-//   const updatePantry = async () => {
-//     const snapshot = query(collection(firestore, 'plentry'))
-//     const docs = await getDocs(snapshot)
-//     const pantryList = []
-//     docs.forEach((doc) => {
-//       pantryList.push({ name: doc.id, ...doc.data() })
-//     })
-//     setPantry(pantryList)
-//   }
-
-//   useEffect(() => {
-//     updatePantry()
-//   }, [])
-
-//   const addItem = async (item) => {
-//     const docRef = doc(collection(firestore, 'plentry'), item)
-//     const docSnap = await getDoc(docRef)
-//     if (docSnap.exists()){
-//       const {count}= docSnap.data()
-//       await setDoc(docRef,{count:count+1})
-//     }
-//     else{
-//       await setDoc(docRef, { count: 1 })
-//     }
-//     await updatePantry()
-//   }
-
-//   const removeItem = async (item) => {
-//     const docRef = doc(collection(firestore, 'plentry'), item)
-//     const docSnap = await getDoc(docRef)
-//     if(docSnap.exists()){
-//       const {count} = docSnap.data()
-//       if(count === 1){
-//         await deleteDoc(docRef)
-//       } else {
-//         await setDoc(docRef,{count:count-1})
-//       }
-//     }
-//     await updatePantry()
-//   }
-
-//   const filteredPantry = pantry.filter(item => 
-//     item.name.toLowerCase().includes(searchQuery.toLowerCase())
-//   )
-
-//   return (
-//     <Box
-//       width="100vw"
-//       height="100vh"
-//       display={'flex'}
-//       justifyContent={'center'}
-//       alignItems={'center'}
-//       backgroundColor="white"
-//       flexDirection={'column'}
-//     >
-//       <Modal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <Box sx={style}>
-//           <Typography id="modal-modal-title" variant="h6" component="h2" color="black" fontFamily={'Playfair Display'}>
-//             Add Item
-//           </Typography>
-//           <Stack width="100%" direction={'row'} spacing={2}>
-//             <TextField
-//               id="outlined-basic"
-//               label="Item Name"
-//               variant="outlined"
-//               fullWidth
-//               value={itemName}
-//               onChange={(e) => setItemName(e.target.value)}
-//             />
-//             <Button
-//               variant="outlined"
-//               onClick={() => {
-//                 addItem(itemName)
-//                 setItemName('')
-//                 handleClose()
-//               }}
-//             >
-//               Add 
-//             </Button>
-//           </Stack>
-//         </Box>
-//       </Modal>
-
-//       <Box
-//         width="800px"
-//         height="100px"
-//         backgroundColor={"#d4b990"}
-//         display={'flex'}
-//         justifyContent={'left'}
-//         alignItems={'left'}
-//         borderRadius={'12px 12px 0 0'}
-//         padding={4}
-//       >
-//         <Typography variant={'h2'} color={'black'} textAlign={'center'} sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
-//           Pantry Items
-//         </Typography>
-//         <Button
-//           variant="contained"
-//           onClick={handleOpen}
-//           sx={{ marginLeft: 'auto', display: 'block', backgroundColor: '#d4b990', color: 'black', fontWeight: 'bold' }}
-//         >
-//           Add Item
-//         </Button>
-//       </Box>
-
-//       <TextField
-//         label="Search items..."
-//         variant="outlined"
-//         fullWidth
-//         sx={{ margin: '5px', maxWidth: '750px' }}
-//         value={searchQuery}
-//         onChange={(e) => setSearchQuery(e.target.value)}
-//       />
-
-//       <Stack width="800px" height="300px" overflow="auto" divider={<Divider orientation="horizontal" flexItem sx={{ borderColor: '#d4b990' }} />}>
-//         {filteredPantry.map(({ name, count }) => (
-//           <Box
-//             key={name}
-//             width="100%"
-//             minHeight="100px"
-//             display={'flex'}
-//             justifyContent={'space-between'}
-//             padding={2}
-//             alignItems={'center'}
-//             backgroundColor={'#ebe3d4'}
-//             paddingX={5}
-//           >
-//             <Typography variant={'h5'} color={'#333'} textAlign={'center'}>
-//               {name.charAt(0).toUpperCase() + name.slice(1)}
-//             </Typography>
-//             <Typography variant={'h5'} color={'#333'} textAlign={'center'}>
-//               {count}
-//             </Typography>
-//             <Button variant="contained" sx={{backgroundColor:'#d4b990'}} onClick={() => removeItem(name)}>Remove</Button>
-//           </Box>
-//         ))}
-//       </Stack>
-//     </Box>
-//   );
-// }
-// "use client"
-// import { Box, Stack, Typography, Button, Modal, TextField, Divider } from '@mui/material'
-// import { useEffect, useState } from 'react'
-// import { firestore } from '@/firebase'
-// import { collection, doc, getDocs, setDoc, query, deleteDoc, getDoc } from 'firebase/firestore'
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'white',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-//   display: 'flex',
-//   flexDirection: 'column',
-//   gap: 3,
-// };
-
-// export default function Home() {
-//   const [pantry, setPantry] = useState([])
-//   const [open, setOpen] = useState(false)
-//   const [itemName, setItemName] = useState('')
-//   const [searchQuery, setSearchQuery] = useState('')
-
-//   const handleOpen = () => setOpen(true)
-//   const handleClose = () => setOpen(false)
-
-//   const updatePantry = async () => {
-//     const snapshot = query(collection(firestore, 'plentry'))
-//     const docs = await getDocs(snapshot)
-//     const pantryList = []
-//     docs.forEach((doc) => {
-//       pantryList.push({ name: doc.id, ...doc.data() })
-//     })
-//     setPantry(pantryList)
-//   }
-
-//   useEffect(() => {
-//     updatePantry()
-//   }, [])
-
-//   const addItem = async (item) => {
-//     const docRef = doc(collection(firestore, 'plentry'), item)
-//     const docSnap = await getDoc(docRef)
-//     if (docSnap.exists()){
-//       const {count}= docSnap.data()
-//       await setDoc(docRef,{count:count+1})
-//     }
-//     else{
-//       await setDoc(docRef, { count: 1 })
-//     }
-//     await updatePantry()
-//   }
-
-//   const removeItem = async (item) => {
-//     const docRef = doc(collection(firestore, 'plentry'), item)
-//     const docSnap = await getDoc(docRef)
-//     if(docSnap.exists()){
-//       const {count} = docSnap.data()
-//       if(count === 1){
-//         await deleteDoc(docRef)
-//       } else {
-//         await setDoc(docRef,{count:count-1})
-//       }
-//     }
-//     await updatePantry()
-//   }
-
-//   const filteredPantry = pantry.filter(item => 
-//     item.name.toLowerCase().includes(searchQuery.toLowerCase())
-//   )
-
-//   return (
-//     <Box
-//       width="100vw"
-//       height="100vh"
-//       display={'flex'}
-//       justifyContent={'center'}
-//       alignItems={'center'}
-//       backgroundColor="white"
-//       flexDirection={'column'}
-//     >
-//       <Modal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <Box sx={style}>
-//           <Typography id="modal-modal-title" variant="h6" component="h2" color="black" fontFamily={'Playfair Display'}>
-//             Add Item
-//           </Typography>
-//           <Stack width="100%" direction={'row'} spacing={2}>
-//             <TextField
-//               id="outlined-basic"
-//               label="Item Name"
-//               variant="outlined"
-//               fullWidth
-//               value={itemName}
-//               onChange={(e) => setItemName(e.target.value)}
-//             />
-//             <Button
-//               variant="outlined"
-//               onClick={() => {
-//                 addItem(itemName)
-//                 setItemName('')
-//                 handleClose()
-//               }}
-//             >
-//               Add 
-//             </Button>
-//           </Stack>
-//         </Box>
-//       </Modal>
-
-//       <Box
-//         width="800px"
-//         height="100px"
-//         backgroundColor={"#d4b990"}
-//         display={'flex'}
-//         justifyContent={'left'}
-//         alignItems={'left'}
-//         borderRadius={'12px 12px 0 0'}
-//         padding={4} 
-//         borderColor ={'black'}
-//       >
-//         <Typography variant={'h2'} color={'black'} textAlign={'center'} sx={{ fontSize: '2rem', fontWeight: 'bold' }}>
-//           Pantry Items
-//         </Typography>
-//         <Button
-//           variant="contained"
-//           onClick={handleOpen}
-//           sx={{ marginLeft: 'auto', display: 'block', backgroundColor: '#d4b990', color: 'black', fontWeight: 'bold' }}
-//         >
-//           Add Item
-//         </Button>
-//       </Box>
-
-//       <TextField
-//         label="Search items . . ."
-//         variant="outlined"
-//         fullWidth
-//         // sx={{ margin: '20px', maxWidth: '800px'}}
-//         sx={{
-//     margin: '20px',
-//     maxWidth: '700px',
-//     '& .MuiOutlinedInput-root': {
-//       '& fieldset': {
-//         borderColor: '#d4b990', // Default border color
-//       },
-//       '&:hover fieldset': {
-//         borderColor: '#d4b990', // Border color when hovering
-//       },
-//       '&.Mui-focused fieldset': {
-//         borderColor: '#d4b990', // Border color when focused
-//       },
-//     },
-//     '& .MuiInputLabel-root': {
-//       color: 'darkbrown', // Label color
-//       fontWeight: '2px'
-//     },
-//     '& .MuiInputLabel-root.Mui-focused': {
-//       color: 'black', // Label color when focused
-//     },
-//   }}
-//         value={searchQuery}
-//         onChange={(e) => setSearchQuery(e.target.value)}
-//       />
-
-//       <Stack width="800px" height="300px" overflow="auto" divider={<Divider orientation="horizontal" flexItem sx={{ borderColor: '#d4b990' }} />}>
-//         {filteredPantry.length > 0 ? (
-//           filteredPantry.map(({ name, count }) => (
-//             <Box
-//               key={name}
-//               width="100%"
-//               minHeight="100px"
-//               display={'flex'}
-//               justifyContent={'space-between'}
-//               padding={2}
-//               alignItems={'center'}
-//               backgroundColor={'#ebe3d4'}
-//               paddingX={5}
-//             >
-//               <Typography variant={'h5'} color={'#333'} textAlign={'center'}>
-//                 {name.charAt(0).toUpperCase() + name.slice(1)}
-//               </Typography>
-//               <Typography variant={'h5'} color={'#333'} textAlign={'center'}>
-//                 {count}
-//               </Typography>
-//               <Button variant="contained" sx={{backgroundColor:'#d4b990'}} onClick={() => removeItem(name)}>Remove</Button>
-//             </Box>
-//           ))
-//         ) : (
-//           <Box
-//             width="100%"
-//             minHeight="300px"
-//             display={'flex'}
-//             justifyContent={'center'}
-//             alignItems={'center'}
-//             padding={2}
-//             backgroundColor={'#ebe3d4'}
-//             paddingX={5}
-//           >
-//             <Typography variant={'h5'} color={'#333'} textAlign={'center'}>
-//               No items in pantry
-//             </Typography>
-//           </Box>
-//         )}
-//       </Stack>
-//     </Box>
-    
-//   );
-// }
-
-"use client"
-import { Box, Stack, Typography, Button, Modal, TextField, Divider } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { firestore } from '@/firebase'
-import { collection, doc, getDocs, setDoc, query, deleteDoc, getDoc } from 'firebase/firestore'
-
+"use client";
+import { Box, Stack, Typography, Button, Modal, TextField, Divider, IconButton } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { firestore } from '@/firebase';
+import { collection, doc, getDocs, setDoc, query, deleteDoc, getDoc } from 'firebase/firestore';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import PantryChart from './PantryChart';
+const imageSrc = '/out-of-stock.png';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -601,58 +25,87 @@ const style = {
 };
 
 export default function Home() {
-  const [pantry, setPantry] = useState([])
-  const [open, setOpen] = useState(false)
-  const [itemName, setItemName] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
+  const [pantry, setPantry] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [itemName, setItemName] = useState('');
+  const [itemQuantity, setItemQuantity] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpen = () => {
+    setItemName('');
+    setItemQuantity(1);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const updatePantry = async () => {
-    const snapshot = query(collection(firestore, 'plentry'))
-    const docs = await getDocs(snapshot)
-    const pantryList = []
+    const snapshot = query(collection(firestore, 'plentry'));
+    const docs = await getDocs(snapshot);
+    const pantryList = [];
     docs.forEach((doc) => {
-      pantryList.push({ name: doc.id, ...doc.data() })
-    })
-    setPantry(pantryList)
-  }
+      pantryList.push({ name: doc.id, ...doc.data() });
+    });
+    setPantry(pantryList);
+  };
 
   useEffect(() => {
-    updatePantry()
-  }, [])
+    updatePantry();
+  }, []);
 
-  const addItem = async (item) => {
-    const docRef = doc(collection(firestore, 'plentry'), item)
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()){
-      const {count}= docSnap.data()
-      await setDoc(docRef,{count:count+1})
+  const addItem = async (item, quantity) => {
+    const docRef = doc(collection(firestore, 'plentry'), item);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const { count } = docSnap.data();
+      await setDoc(docRef, { count: count + quantity });
+    } else {
+      await setDoc(docRef, { count: quantity });
     }
-    else{
-      await setDoc(docRef, { count: 1 })
-    }
-    await updatePantry()
-  }
+    await updatePantry();
+  };
 
-  const removeItem = async (item) => {
-    const docRef = doc(collection(firestore, 'plentry'), item)
-    const docSnap = await getDoc(docRef)
-    if(docSnap.exists()){
-      const {count} = docSnap.data()
-      if(count === 1){
-        await deleteDoc(docRef)
+  const removeItem = async (item, quantity) => {
+    const docRef = doc(collection(firestore, 'plentry'), item);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const { count } = docSnap.data();
+      if (count <= quantity) {
+        await deleteDoc(docRef);
       } else {
-        await setDoc(docRef,{count:count-1})
+        await setDoc(docRef, { count: count - quantity });
       }
     }
-    await updatePantry()
-  }
+    await updatePantry();
+  };
 
-  const filteredPantry = pantry.filter(item => 
+  const handleQuantityChange = async (item, operation) => {
+    const docRef = doc(collection(firestore, 'plentry'), item);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const { count } = docSnap.data();
+      if (operation === 'increase') {
+        await setDoc(docRef, { count: count + 1 });
+      } else if (operation === 'decrease' && count > 1) {
+        await setDoc(docRef, { count: count - 1 });
+      }
+      await updatePantry();
+    }
+  };
+
+  const handleAddItem = async () => {
+    if (itemName && itemQuantity > 0) {
+      await addItem(itemName, itemQuantity);
+      handleClose();
+    }
+  };
+
+  const filteredPantry = pantry.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  );
 
   return (
     <Box
@@ -661,18 +114,80 @@ export default function Home() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      backgroundColor="white"
+      backgroundColor="#d4b990"
     >
-      <Box
+ <Typography
+  variant="title"
+  sx={{
+    position: 'absolute',
+    top: '0',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    margin: '20px',
+  }}
+>
+  <span style={{ color: '#000' }}>Pantry</span>
+  <span style={{ color: '#FFF' }}>Items</span>
+</Typography>
+<Typography
+  variant="title"
+  sx={{
+    position: 'absolute',
+    top: '80px', // Adjust this value as needed
+    left: '50%',
+    transform: 'translateX(-50%)',
+    fontSize: '1rem',
+    fontWeight: 'normal',
+    margin: '10px',
+    textAlign: 'center',
+    color: '#666666',
+  }}
+>
+  Log your pantry items and visualize your stock levels with ease. <br />
+  Start by adding items to your pantry and see the chart update automatically!
+</Typography>
+
+
+
+
+
+
+      
+
+          <Box
         width="800px"
-        border="2px solid #d4b990"  // Border around the entire content
+        height ="650px"
+        border="2px solid black"
         borderRadius="12px"
         padding={0}
         display="flex"
         flexDirection="column"
-        backgroundColor = '#ebe3d4'
+        backgroundColor="#ebe3d4"
         gap={2}
+        marginRight= "30px"
+        style={{ position: 'relative' }}
       >
+      
+       
+      <PantryChart pantryData={pantry} />
+
+       
+      </Box>
+
+      <Box
+        width="800px"
+        border="2px solid #d4b990"
+        borderRadius="12px"
+        padding={0}
+        display="flex"
+        flexDirection="column"
+        backgroundColor="#ebe3d4"
+        gap={2}
+        border="2px solid black"
+      >
+      
         <Box
           width="100%"
           height="100px"
@@ -680,8 +195,9 @@ export default function Home() {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          borderRadius="12px 12px 0 0 "
+          borderRadius="12px 12px 0 0"
           padding={4}
+          // border="2px solid black"
         >
           <Typography variant="h2" color="black" textAlign="center" sx={{ fontSize: '2rem', fontWeight: 'bold' }}>
             Pantry Items
@@ -704,63 +220,46 @@ export default function Home() {
             maxWidth: '700px',
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
-                borderColor: '#d4b990', // Default border color
+                borderColor: '#d4b990',
               },
               '&:hover fieldset': {
-                borderColor: '#d4b990', // Border color when hovering
+                borderColor: '#d4b990',
               },
               '&.Mui-focused fieldset': {
-                borderColor: '#d4b990', // Border color when focused
+                borderColor: '#d4b990',
               },
             },
             '& .MuiInputLabel-root': {
-              color: 'darkbrown', // Label color
+              color: 'darkbrown',
             },
             '& .MuiInputLabel-root.Mui-focused': {
-              color: 'black', // Label color when focused
+              color: 'black',
             },
           }}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        {/* <Stack direction="row" spacing={2} alignItems="center" width="100%" mb={2} padding = {2} >
-        <Typography variant="h6" color="black">
-          Food
-        </Typography>
-        <Typography variant="h6" color="black">
-          Quantity
-        </Typography>
-      </Stack> */}
-      {/* <Stack width="100%" direction="row" spacing={2}>
-      <Typography variant="h6" color="black">
-          Food
-        </Typography>
-        <Typography variant="h6" color="black">
-          Quantity
-        </Typography>
-            </Stack> */}
-            <Box
-                key={name}
-                width="100%"
-                minHeight="100px"
-                display="flex"
-                justifyContent="space-between"
-                padding={2}
-                alignItems="center"
-                backgroundColor="#ebe3d4"
-                paddingX={5}
-              >
-                <Typography variant="h5" color="#333" textAlign="center" fontWeight="bold">
-                  Food
-                </Typography>
-                <Typography variant="h5" color="#333" textAlign="center" fontWeight="bold">
-                 Quantity
-                </Typography>
-                <Typography variant="h5" color="#333" textAlign="center" fontWeight="bold">
-                 X
-                </Typography>
-           
-              </Box>
+
+        <Box
+          width="100%"
+          minHeight="100px"
+          display="flex"
+          justifyContent="space-between"
+          padding={2}
+          alignItems="center"
+          backgroundColor="#ebe3d4"
+          paddingX={5}
+        >
+          <Typography variant="h5" color="#333" textAlign="center" fontWeight="bold">
+            Food
+          </Typography>
+          <Typography variant="h5" color="#333" textAlign="center" fontWeight="bold">
+            Quantity
+          </Typography>
+          <Typography variant="h5" color="#333" textAlign="center" fontWeight="bold">
+            Actions
+          </Typography>
+        </Box>
 
         <Stack width="100%" height="300px" overflow="auto" divider={<Divider orientation="horizontal" flexItem sx={{ borderColor: '#d4b990' }} />}>
           {filteredPantry.length > 0 ? (
@@ -782,7 +281,21 @@ export default function Home() {
                 <Typography variant="h5" color="#333" textAlign="center">
                   {count}
                 </Typography>
-                <Button variant="contained" sx={{ backgroundColor: '#d4b990', color: 'black', fontWeight:'bold' }} onClick={() => removeItem(name)}>Remove</Button>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <IconButton onClick={() => handleQuantityChange(name, 'decrease')}>
+                    <RemoveIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleQuantityChange(name, 'increase')}>
+                    <AddIcon />
+                  </IconButton>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: '#d4b990', color: 'black', fontWeight: 'bold' }}
+                    onClick={() => removeItem(name, count)}
+                  >
+                    Remove
+                  </Button>
+                </Stack>
               </Box>
             ))
           ) : (
@@ -796,9 +309,12 @@ export default function Home() {
               backgroundColor="#ebe3d4"
               paddingX={5}
             >
-              <Typography variant="h5" color="#333" textAlign="center">
-                No items in pantry
-              </Typography>
+              <Stack>
+                <img src={imageSrc} alt="Out of Stock" style={{ width: '200px', height: '200px' }} />
+                <Typography variant="h5" color="#333" textAlign="center">
+                  Out Of Stock : (
+                </Typography>
+              </Stack>
             </Box>
           )}
         </Stack>
@@ -812,30 +328,40 @@ export default function Home() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2" color="black" fontFamily={'Playfair Display'}>
-            Add Item
+            Add New Item
           </Typography>
-          <Stack width="100%" direction="row" spacing={2}>
-            <TextField
-              id="outlined-basic"
-              label="Item Name"
-              variant="outlined"
-              fullWidth
-              value={itemName}
-              onChange={(e) => setItemName(e.target.value)}
-            />
-            <Button
-              variant="outlined"
-              onClick={() => {
-                addItem(itemName)
-                setItemName('')
-                handleClose()
-              }}
-            >
-              Add 
-            </Button>
-          </Stack>
+          <TextField
+            label="Item Name"
+            variant="outlined"
+            fullWidth
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+          />
+          <TextField
+            label="Quantity"
+            variant="outlined"
+            fullWidth
+            type="number"
+            value={itemQuantity}
+            onChange={(e) => setItemQuantity(Number(e.target.value))}
+            InputProps={{ inputProps: { min: 1 } }} // Prevents negative quantities
+          />
+          <Button
+            variant="contained"
+            onClick={handleAddItem}
+            sx={{ backgroundColor: '#d4b990', color: 'black', fontWeight: 'bold' }}
+          >
+            Add Item
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleClose}
+            sx={{ backgroundColor: '#d4b990', color: 'black', fontWeight: 'bold' }}
+          >
+            Cancel
+          </Button>
         </Box>
       </Modal>
     </Box>
-  )
+  );
 }
