@@ -195,6 +195,19 @@ export default function GoogleSignInButton() {
           </Box>
         </Box>
       </Box>
+      <Box
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        padding={2}
+        marginTop="auto" // Pushes it to the bottom
+        backgroundColor="#E0D4C0"
+      >
+        <Typography variant="body2" color="#333" textAlign="center">
+          No Copyright © {new Date().getFullYear()}
+        </Typography>
+    </Box>
     </Box>
   );
 }
