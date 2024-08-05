@@ -40,6 +40,7 @@
 //     </html>
 //   );
 // }
+import { Analytics } from "@vercel/analytics/react"
 import { AuthProvider } from './components/AuthContext'; // Ensure this path is correct
 
 export default function RootLayout({ children }) {
@@ -48,7 +49,8 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           {children}
-        </AuthProvider>
+           </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

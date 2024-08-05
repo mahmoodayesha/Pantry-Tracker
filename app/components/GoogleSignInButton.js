@@ -205,7 +205,7 @@ export default function GoogleSignInButton() {
         backgroundColor="#E0D4C0"
       >
         <Typography variant="body2" color="#333" textAlign="center">
-          No Copyright © {new Date().getFullYear()}
+          No Copyright Ayesha Mahmood © {new Date().getFullYear()}
         </Typography>
     </Box>
     </Box>
